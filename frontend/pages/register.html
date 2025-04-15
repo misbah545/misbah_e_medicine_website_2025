@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #6a1b9a;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .register-section {
+            padding: 40px;
+            width: 50%;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .register-section h1 {
+            margin-bottom: 30px;
+            font-size: 30px;
+            color: #333;
+            text-align: center;
+            border-bottom: 3px solid #6a1b9a;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .register-section label {
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #333;
+            display: block;
+        }
+
+        .register-section input[type="text"],
+        .register-section input[type="email"],
+        .register-section input[type="password"],
+        .register-section select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .register-section button {
+            width: 100%;
+            padding: 10px;
+            background-color: #6a1b9a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .register-section .login {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .register-section .login a {
+            color: #6a1b9a;
+            text-decoration: none;
+        }
+
+        .image-section {
+            width: 50%;
+            background: url('../assets/images/Register page.jpg') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #000;
+            padding: 40px;
+        }
+
+        .image-section h3 {
+            font-size: 28px;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+
+        .image-section p {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .image-section {
+                width: 100%;
+                height: 200px;
+                background-size: cover;
+            }
+
+            .register-section {
+                width: 100%;
+                padding: 20px;
+            }
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="register-section">
+            <h1>Customer Registration Form</h1>
+            <form id="registrationForm">
+                <label for="register_customer_name">Full Name</label>
+                <input type="text" id="register_customer_name" name="register_customer_name" required>
+
+                <label for="register_customer_email">Email</label>
+                <input type="email" id="register_customer_email" name="register_customer_email" required>
+
+                <label for="register_customer_password">Password</label>
+                <input type="password" id="register_customer_password" name="register_customer_password" required>
+
+                <label for="register_customer_gender">Gender</label>
+                <select id="register_customer_gender" name="register_customer_gender" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label for="register_customer_address">Address</label>
+                <input type="text" id="register_customer_address" name="register_customer_address" required>
+
+                <label for="register_customer_phone">Contact Number</label>
+                <input type="text" id="register_customer_phone" name="register_customer_phone" required>
+
+                <button type="submit">Register</button>
+
+                <div class="login">
+                    Already have an account? <a href="http://localhost:8000/frontend/pages/Customer_login.html">Login now</a>
+                </div>
+            </form>
+        </div>
+        <div class="image-section">
+            <div>
+                <b>
+                    <h3>Join us and explore new adventures.</h3>
+                </b>
+                <b>
+                    <p>Get connected with just a few clicks.</p>
+                </b>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#registrationForm").on("submit", function (event) {
+                event.preventDefault(); // Prevent the form from submitting normally
+    
+                $.ajax({
+                    url: "http://localhost:8000/backend/controllers/register.php",
+                    type: "POST",
+                    data: $(this).serialize(), // Serialize form data
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.status === "error") {
+                            // Display error messages in an alert box
+                            let errorMessages = response.messages.join("\n");
+                            alert("Error:\n" + errorMessages);
+                        } else if (response.status === "success") {
+                            // Display success message in an alert box
+                            alert(response.message);
+                            // Redirect to the login page
+                            window.location.href = "http://localhost:8000/frontend/pages/Customer_login.html";
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("AJAX Error:", error);
+                        alert("An unexpected error occurred. Please try again.");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

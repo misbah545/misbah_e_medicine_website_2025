@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - E-Medicine</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('../assets/images/Customerhomebg.jpeg');
+            background-size: cover;
+            background-attachment: fixed;
+            color: #333;
+        }
+
+        header {
+            background-color: #0066cc;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin-left: 20px;
+            position: relative;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            display: block;
+        }
+        nav ul li:hover > ul {
+            display: block;
+        }
+        nav ul ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #0066cc;
+            padding: 10px;
+            list-style: none;
+            min-width: 160px;
+            z-index: 1000;
+        }
+        nav ul ul li {
+            margin: 0;
+        }
+        .banner {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            margin: 20px;
+            border-radius: 10px;
+        }
+
+        /* Default search box style */
+        #search {
+            width: 60%;
+            max-width: 500px;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        /* Change border color to red on focus (when clicked) */
+        #search:focus {
+            border: 2px solid red;
+        }
+
+
+        .products {
+            padding: 40px 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            margin: 20px;
+            border-radius: 10px;
+        }
+        .products h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .product-item {
+            text-align: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        .product-item:hover {
+            transform: scale(1.05);
+        }
+        .product-item img {
+            max-width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 15px;
+        }
+        .product-item h3 {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        .product-item p {
+            font-size: 16px;
+            color: #888;
+            margin-bottom: 15px;
+        }
+        .product-item button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .view-btn {
+            background-color: #007bff;
+            color: white;
+            margin-bottom: 5px;
+        }
+        .view-btn:hover {
+            background-color: #0056b3;
+        }
+        .cart-btn {
+            background-color: #28a745;
+            color: white;
+        }
+        .cart-btn:hover {
+            background-color: #218838;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #0066cc;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .social-icons {
+            margin-top: 10px;
+        }
+        .social-icons a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar"></div>
+
+    <section class="banner">
+        <h1>Welcome to E-Medicine</h1>
+        <p>Find the best healthcare products online</p>
+        <input type="text" id="search" placeholder="Search for products..." onkeyup="searchProducts()">
+        <p id="noResults" style="display: none; text-align: center; color: red;">No products found.</p>
+    </section>
+
+    <section class="products">
+        <h2>All Products</h2>
+        <div class="product-grid"></div>
+    </section>
+
+    <div id="footer"></div>
+
+    <script>
+        // Load navbar and footer
+        fetch('../components/navbar.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('navbar').innerHTML = data)
+            .catch(error => console.error('Error loading navbar:', error));
+
+        fetch('../components/footer.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('footer').innerHTML = data)
+            .catch(error => console.error('Error loading footer:', error));
+
+        function viewDetails(productId) {
+            window.location.href = "product_details.html?product_id=" + productId;
+        }
+
+        function addToCart(product_id) {
+            let quantity = prompt("Enter quantity:", "1");
+            if (!quantity || isNaN(quantity) || quantity < 1) {
+                alert("Invalid quantity!");
+                return;
+            }
+
+            fetch('http://localhost:8000/backend/controllers/cart.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `product_id=${product_id}&quantity=${quantity}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('http://localhost:8000/backend/controllers/customer_home.php')
+                .then(response => response.json())
+                .then(products => {
+                    let productGrid = document.querySelector('.product-grid');
+                    productGrid.innerHTML = "";
+
+                    products.forEach(product => {
+                        let productHTML = `
+                            <div class="product-item">
+                                <img src="../assets/images/${product.Product_img}" alt="${product.Pro_name}">
+                                <h3>${product.Pro_name}</h3>
+                                <p>&#8377;${product.Price}</p>
+                                <button class="view-btn" onclick="viewDetails(${product.Product_id})">View Details</button>
+                                <button class="cart-btn" onclick="addToCart(${product.Product_id})">Add to Cart</button>
+                            </div>
+                        `;
+                        productGrid.innerHTML += productHTML;
+                    });
+                })
+                .catch(error => console.error('Error fetching products:', error));
+        });
+
+        function searchProducts() {
+            let input = document.getElementById("search").value.toLowerCase();
+            let products = document.querySelectorAll(".product-item");
+            let noResults = document.getElementById("noResults");
+            let found = false;
+
+            products.forEach(product => {
+                let productName = product.querySelector("h3").innerText.toLowerCase();
+                if (productName.includes(input)) {
+                    product.style.display = "block"; 
+                    found = true;
+                } else {
+                    product.style.display = "none";  
+                }
+            });
+
+            noResults.style.display = found ? "none" : "block";
+        }
+    </script>
+</body>
+</html>

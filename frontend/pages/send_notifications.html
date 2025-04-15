@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Notifications - E-Medicine</title>
+    <link rel="stylesheet" href="http://localhost:8000/frontend/pages/subadmin_dashboard.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>SubAdmin Panel</h2>
+        <ul>
+            <li><a href="http://localhost:8000/frontend/pages/subadmin_dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="http://localhost:8000/frontend/pages/manage_orders.html"><i class="fas fa-box"></i> Manage Orders</a></li>
+            <li><a href="http://localhost:8000/frontend/pages/subadmin_feedback.html"><i class="fas fa-comments"></i> View Feedback</a></li>
+            <li><a href="http://localhost:8000/frontend/pages/manage_products.html"><i class="fas fa-pills"></i> Manage Products</a></li>
+            <li><a href="http://localhost:8000/frontend/pages/send_notifications.html"><i class="fas fa-bell"></i> Send Notifications</a></li>
+            <li><a href="http://localhost:8000/frontend/pages/subadmin_login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+            <li><a href="http://localhost:8000/backend/controllers/subadmin_logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <h1>Send Notifications</h1>
+        <form id="notificationForm">
+            <label for="notificationType">Notification Type:</label>
+            <select id="notificationType" name="notificationType">
+                <option value="update">Update</option>
+                <option value="prescription">Prescription Reminder</option>
+                <option value="product">Product Availability</option>
+            </select>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <button type="submit">Send Notification</button>
+        </form>
+
+        <div id="response"></div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#notificationForm").submit(function(e) {
+                e.preventDefault();
+                var notificationType = $("#notificationType").val();
+                var message = $("#message").val();
+
+                $.ajax({
+                    url: "http://localhost:8000/backend/controllers/send_notification.php",
+                    type: "POST",
+                    data: { notificationType: notificationType, message: message },
+                    success: function(response) {
+                        $("#response").html("<p>" + response + "</p>");
+                        $("#message").val("");
+                    },
+                    error: function() {
+                        $("#response").html("<p style='color: red;'>Error sending notification</p>");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

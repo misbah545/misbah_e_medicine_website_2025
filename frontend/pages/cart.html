@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - E-Medicine</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #0066cc;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin-left: 20px;
+            position: relative;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            display: block;
+        }
+        nav ul li:hover > ul {
+            display: block;
+        }
+        nav ul ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #0066cc;
+            padding: 10px;
+            list-style: none;
+            min-width: 160px;
+            z-index: 1000;
+        }
+        nav ul ul li {
+            margin: 0;
+        }
+        .container {
+            width: 60%;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background: #3498db;
+            color: white;
+            padding: 10px;
+        }
+        td {
+            padding: 8px;
+        }
+        .cancel-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .cancel-btn:hover {
+            background: #c0392b;
+        }
+        .checkout-btn {
+            background: #2ecc71;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        .checkout-btn:hover {
+            background: #27ae60;
+        }
+        .btn {
+            background: #2ecc71;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background: #27ae60;
+        }
+        /* Popup form styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            width: 40%;
+            z-index: 1000;
+            text-align: left;
+        }
+        .popup input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .popup button {
+            margin-top: 10px;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+        .popup button:hover {
+            background: #2980b9;
+        }
+        .close-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            float: right;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #0066cc;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .social-icons {
+            margin-top: 10px;
+        }
+        .social-icons a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar"></div>
+    <div class="container">
+        <h1>Your Cart</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items"></tbody>
+        </table>
+        <div class="total-section">
+            <h2>Total Bill: ₹<span id="total-bill">0.00</span></h2>
+            <button id="checkout-btn" class="checkout-btn">Proceed to Payment</button>
+            <button id="add-delivery-btn" class="btn">Add Delivery Details</button>
+        </div>
+        <div class="popup" id="shipping-popup">
+            <button class="close-btn" onclick="closePopup()">X</button>
+            <h2>Enter Shipping Details</h2>
+            <input type="text" id="shipp_address" placeholder="Address" required>
+            <input type="text" id="shipp_city" placeholder="City" required>
+            <input type="text" id="shipp_state" placeholder="State" required>
+            <input type="text" id="shipp_zip" placeholder="Zip Code" required>
+            <input type="text" id="shipp_country" placeholder="Country" required>
+            <button id="submit-shipping">Save & Continue</button>
+        </div>
+
+    
+        
+    </div>
+    <div id="footer"></div>
+
+    <script>
+    function loadCart() {
+    $.ajax({
+        url: "http://localhost:8000/backend/controllers/fetch_cart.php",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            let cartHTML = "";
+            let totalBill = 0;
+            data.forEach(item => {
+                let total = parseFloat(item.Price) * parseInt(item.Quantity);
+                totalBill += total;
+                cartHTML += `<tr id='row-${item.Product_id}'>
+                    <td>${item.Pro_name}</td>
+                    <td>₹${item.Price}</td>
+                    <td>${item.Quantity}</td>
+                    <td class='cart-total'>₹${total.toFixed(2)}</td>
+                    <td><button class='cancel-btn' data-id='${item.Product_id}'>Cancel</button></td>
+                </tr>`;
+            });
+
+            $("#cart-items").html(cartHTML);
+            $("#total-bill").text(totalBill.toFixed(2));
+
+            attachCancelEvent();
+        }
+    });
+}
+
+function attachCancelEvent() {
+    $(".cancel-btn").click(function () {
+        let productId = $(this).data("id");
+        let row = $(`#row-${productId}`); // Fixed selector
+        let productName = row.find("td:first").text();
+
+        fetch("http://localhost:8000/backend/controllers/remove_from_cart.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: `product_id=${productId}` // Fixed body format
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                alert(productName + " removed successfully!");
+                row.remove(); // Remove from UI
+                updateTotal(); // Update total amount
+            } else {
+                alert("Error: " + data.message);
+            }
+        })
+        .catch(() => alert("Error removing item."));
+    });
+}
+
+
+        function updateTotal() {
+            let total = 0;
+            $(".cart-total").each(function () {
+                total += parseFloat($(this).text().replace("₹", ""));
+            });
+            $("#total-bill").text(total.toFixed(2));
+        }
+
+        $("#checkout-btn").click(function () {
+            //let paymentType = prompt("Enter Payment Type (COD or Online):");
+            let paymentType = prompt("Enter Payment Type (COD or Online):").trim().toLowerCase();
+
+            if (paymentType === null || (paymentType.toLowerCase() !== "cod" && paymentType.toLowerCase() !== "online")) {
+                alert("Invalid Payment Type! Please enter 'COD' or 'Online'.");
+                return;
+            }
+
+            $.ajax({
+                url: "http://localhost:8000/backend/controllers/generate_bill.php",
+                method: "POST",
+                data: { payment_type: paymentType },
+                success: function (response) {
+                    let data = JSON.parse(response);
+                    if (data.status === "success") {
+                        // Update: Redirecting to the correct page
+                        if (data.redirect_url) {
+                            window.location.href = data.redirect_url; 
+                        } else {
+                            alert("Bill generated but no redirection URL found.");
+                        }
+                    } else {
+                        alert("Error: " + data.message);
+                    }
+                },
+                error: function () {
+                    alert("Failed to process payment.");
+                }
+            });
+        });
+
+        function closePopup() {
+            $("#shipping-popup").hide();
+        }
+
+        $("#add-delivery-btn").click(function () {
+            $("#shipping-popup").show();
+        });
+
+        $("#submit-shipping").click(function () {
+    let shippAddress = $("#shipp_address").val().trim();
+    let shippCity = $("#shipp_city").val().trim();
+    let shippState = $("#shipp_state").val().trim();
+    let shippZip = $("#shipp_zip").val().trim();
+    let shippCountry = $("#shipp_country").val().trim();
+
+    // Validate fields
+    if (!shippAddress || !shippCity || !shippState || !shippZip || !shippCountry) {
+        alert("Please fill in all the shipping details.");
+        return;
+    }
+
+    // Disable button to prevent multiple submissions
+    $("#submit-shipping").prop("disabled", true).text("Saving...");
+
+    $.ajax({
+        url: "http://localhost:8000/backend/controllers/shipping.php",
+        method: "POST",
+        data: {
+            shipp_address: shippAddress,
+            shipp_city: shippCity,
+            shipp_state: shippState,
+            shipp_zip: shippZip,
+            shipp_country: shippCountry
+        },
+        dataType: "json", // Ensure JSON response
+        success: function (response) {
+            if (response.status === "success") {
+                alert("Shipping details saved successfully!");
+                closePopup(); // Close the popup only if the request is successful
+            } else {
+                alert("Error: " + (response.message || "Failed to save shipping details."));
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("AJAX Error:", status, error);
+            alert("Failed to save shipping details. Please try again.");
+        },
+        complete: function () {
+            $("#submit-shipping").prop("disabled", false).text("Save & Continue");
+        }
+    });
+});
+
+    // Load cart on page load
+    loadCart();
+  
+</script>
+    <script>
+        // Load navbar and footer
+        fetch('../components/navbar.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('navbar').innerHTML = data)
+            .catch(error => console.error('Error loading navbar:', error));
+
+        fetch('../components/footer.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('footer').innerHTML = data)
+            .catch(error => console.error('Error loading footer:', error));
+
+    </script>
+</body>
+</html>

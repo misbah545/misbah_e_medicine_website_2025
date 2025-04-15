@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SubAdmin Login - E-Medicine</title>
+    <link rel="stylesheet" href="admin_style.css">
+    <script>
+        // JavaScript for form validation
+        function validateForm(event) {
+            const adminName = document.getElementById("admin_name").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            if (!adminName || !password) {
+                alert("Please fill in all fields.");
+                event.preventDefault(); // Prevent form submission
+                return false;
+            }
+            return true; // Allow form submission
+        }
+    </script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>LOG IN</h2>
+            <form id="adminLoginForm" action="http://localhost:8000/backend/controllers/subadmin_login.php" method="POST" onsubmit="return validateForm(event)">
+                <input type="text" id="admin_name" name="admin_name" placeholder="Your Name" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

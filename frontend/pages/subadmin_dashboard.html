@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subadmin Dashboard - E-Medicine</title>
+    <link rel="stylesheet" href="http://localhost:8000/frontend/pages/subadmin_dashboard.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery for AJAX -->
+</head>
+<body>
+    <div class="sidebar">
+        <h2>SubAdmin Panel</h2>
+        <ul>
+            <li><a href="http://localhost:8000/frontend/pages/subadmin_dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="http://localhost:8000/frontend/pages/manage_orders.html"><i class="fas fa-box"></i> Manage Orders</a></li>
+            <li><a href="http://localhost:8000/frontend/pages/subadmin_feedback.html"><i class="fas fa-comments"></i> View Feedback</a></li>
+            <li><a href="http://localhost:8000/frontend/pages/manage_products.html"><i class="fas fa-pills"></i> Manage Products</a></li>
+            <li><a href="http://localhost:8000/frontend/pages/send_notifications.html"><i class="fas fa-bell"></i> Send Notifications</a></li>
+            <li><a href="http://localhost:8000/frontend/pages/subadmin_login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+            <li><a href="http://localhost:8000/backend/controllers/subadmin_logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <h1>Welcome, SubAdmin</h1>
+        <p>Manage your E-Medicine platform efficiently.</p>
+
+        <div class="dashboard-cards">
+            <div class="card"><i class="fas fa-money-bill"></i><h3>Billing</h3><p id="billing">Loading...</p></div>
+            <div class="card"><i class="fas fa-shopping-cart"></i><h3>Cart</h3><p id="cart">Loading...</p></div>
+            <div class="card"><i class="fas fa-list"></i><h3>Category</h3><p id="category">Loading...</p></div>
+            <div class="card"><i class="fas fa-box"></i><h3>Orders</h3><p id="orders">Loading...</p></div>
+            <div class="card"><i class="fas fa-file-prescription"></i><h3>Prescriptions</h3><p id="prescription">Loading...</p></div>
+            <div class="card"><i class="fas fa-pills"></i><h3>Products</h3><p id="product">Loading...</p></div>
+            <div class="card"><i class="fas fa-comment"></i><h3>Reviews</h3><p id="review">Loading...</p></div>
+            <div class="card"><i class="fas fa-shipping-fast"></i><h3>Shipping</h3><p id="shipping">Loading...</p></div>
+            <div class="card"><i class="fas fa-tags"></i><h3>Subcategories</h3><p id="subcategory">Loading...</p></div>
+            <div class="card"><i class="fas fa-user-md"></i><h3>Track Medicine</h3><p id="trackMedicine">Loading...</p></div>
+            <div class="card"><i class="fas fa-envelope"></i><h3>Messages</h3><p id="contact_messages">Loading...</p></div>
+        </div>
+    </div>
+
+    <script src="http://localhost:8000/frontend/pages/subadmin_dashboard.js"></script>
+</body>
+</html>

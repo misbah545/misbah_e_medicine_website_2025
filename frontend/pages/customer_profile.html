@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - E-Medicine</title>
+    <style>
+    
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #0066cc;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            display: block;
+        }
+
+        nav ul li:hover > ul {
+            display: block;
+        }
+
+        nav ul ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #0066cc;
+            padding: 10px;
+            list-style: none;
+            min-width: 160px;
+            z-index: 1000;
+        }
+
+        nav ul ul li {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .profile-details, .order-history {
+            margin-top: 20px;
+        }
+        .profile-details p, .order-history table {
+            font-size: 18px;
+            color: #444;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #0066cc;
+            color: white;
+        }
+        .edit-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: block;
+            width: 100%;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .edit-btn:hover {
+            background-color: #218838;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #0066cc;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .social-icons {
+            margin-top: 10px;
+        }
+        .social-icons a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar will be fetched from navbar.html -->
+<div id="navbar"></div>
+    <div class="container">
+        <h2>My Profile</h2>
+        <div class="profile-details">
+            <p><b>Name:</b> <span id="name"></span></p>
+            <p><b>Email:</b> <span id="email"></span></p>
+            <p><b>Phone:</b> <span id="phone"></span></p>
+            <p><b>Address:</b> <span id="address"></span></p>
+            <button class="edit-btn" onclick="showEditForm()">Edit Profile</button>
+        </div>
+
+        <div id="edit-form" style="display: none;">
+            <h3>Edit Profile</h3>
+            <div class="form-group">
+                <label for="newName">Name:</label>
+                <input type="text" id="newName">
+            </div>
+            <div class="form-group">
+                <label for="newEmail">Email:</label>
+                <input type="email" id="newEmail">
+            </div>
+            <div class="form-group">
+                <label for="newPhone">Phone:</label>
+                <input type="text" id="newPhone">
+            </div>
+            <div class="form-group">
+                <label for="newAddress">Address:</label>
+                <input type="text" id="newAddress">
+            </div>
+            <button class="edit-btn" onclick="updateProfile()">Save Changes</button>
+        </div>
+
+        <h2>Order History</h2>
+        <div class="order-history">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="orderTable"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Fetch user profile
+        fetch('http://localhost:8000/backend/controllers/customer_profile.php')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("name").innerText = data.name;
+                document.getElementById("email").innerText = data.email;
+                document.getElementById("phone").innerText = data.phone;
+                document.getElementById("address").innerText = data.address;
+            })
+            .catch(error => console.error('Error loading profile:', error));
+
+        // Fetch order history
+        fetch('http://localhost:8000/backend/controllers/order_history.php')
+            .then(response => response.json())
+            .then(orders => {
+                let orderTable = document.getElementById("orderTable");
+                orders.forEach(order => {
+                    let row = `
+                        <tr>
+                            <td>${order.order_id}</td>
+                            <td>${order.product_name}</td>
+                            <td>&#8377;${order.price}</td>
+                            <td>${order.date}</td>
+                        </tr>`;
+                    orderTable.innerHTML += row;
+                });
+            })
+            .catch(error => console.error('Error fetching orders:', error));
+
+        function showEditForm() {
+            document.getElementById("edit-form").style.display = "block";
+        }
+
+        function updateProfile() {
+            let newName = document.getElementById("newName").value;
+            let newEmail = document.getElementById("newEmail").value;
+            let newPhone = document.getElementById("newPhone").value;
+            let newAddress = document.getElementById("newAddress").value;
+
+            fetch('http://localhost:8000/backend/controllers/update_profile.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `name=${newName}&email=${newEmail}&phone=${newPhone}&address=${newAddress}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                location.reload();
+            })
+            .catch(error => console.error('Error updating profile:', error));
+        }
+    </script>
+        <div id="footer"></div>
+        <script>
+            // Load navbar from navbar.html
+            fetch('../components/navbar.html')  // Correct path to your navbar file
+                .then(response => response.text())
+                .then(data => document.getElementById('navbar').innerHTML = data)
+                .catch(error => console.error('Error loading navbar:', error));
+    
+            // Load footer from footer.html
+            fetch('../components/footer.html')  // Correct path to your footer file
+                .then(response => response.text())
+                .then(data => document.getElementById('footer').innerHTML = data)
+                .catch(error => console.error('Error loading footer:', error));
+        </script>
+
+</body>
+</html>

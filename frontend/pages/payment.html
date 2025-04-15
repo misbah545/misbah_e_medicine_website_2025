@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - E-Medicine</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Payment Processing</h1>
+    <p>Total Amount to Pay: ₹<span id="pay-amount">0.00</span></p>
+
+    <button id="pay-now">Pay Now</button>
+
+    <script>
+        $(document).ready(function () {
+            let urlParams = new URLSearchParams(window.location.search);
+            let totalAmount = urlParams.get("total");
+
+            $("#pay-amount").text(totalAmount);
+
+            $("#pay-now").click(function () {
+                alert("Payment successful! Your order has been placed.");
+                window.location.href = "http://localhost:8000/frontend/pages/order_confirmation.html";
+            });
+        });
+    </script>
+</body>
+</html>
