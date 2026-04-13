@@ -13,13 +13,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate form fields
     if (empty($name) || empty($email) || empty($message)) {
-        echo "<script>alert('All fields are required.'); window.history.back();</script>";
+        echo json_encode(['status' => 'error', 'message' => 'All fields are required.']);
         exit();
     }
 
     // Check email format
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "<script>alert('Invalid email format.'); window.history.back();</script>";
+        echo json_encode(['status' => 'error', 'message' => 'Invalid email format.']);
         exit();
     }
 
@@ -32,13 +32,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "INSERT INTO contact_messages (name, email, message) VALUES ('$name', '$email', '$message')";
 
     if (mysqli_query($conn, $sql)) {
-        echo "<script>
-                alert('Message Sent Successfully!');
-                window.location.href = 'http://localhost:8000/frontend/pages/customer_home.html';
-              </script>";
+        echo json_encode(['status' => 'success', 'message' => 'Message Sent Successfully!']);
         exit();
     } else {
-        echo "<script>alert('Error: " . mysqli_error($conn) . "'); window.history.back();</script>";
+        echo json_encode(['status' => 'error', 'message' => 'Error: ' . mysqli_error($conn)]);
         exit();
     }
 }

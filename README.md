@@ -10,7 +10,7 @@ Welcome to the **E-Medicine Web Platform**, a modern, premium online pharmacy an
 
 ##  Features
 
-### 🛍️ Customer Experience
+### Customer Experience
 - **Premium User Interface**: A modern aesthetic featuring glassmorphism, responsive grid layouts, and custom micro-animations built completely with modern CSS (Zero framework dependencies).
 - **Product Discovery**: Browse through intelligently categorized medical supplies including Medications, Supplements, Personal Care, and Medical Equipment.
 - **Dynamic Cart & Checkout**: Real-time cart updates, beautiful checkout modals, and a dedicated Order Confirmation workflow complete with PDF invoice generation.
