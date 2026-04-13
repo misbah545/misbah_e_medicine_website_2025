@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = filter_var(trim($_POST['forgot_email']), FILTER_VALIDATE_EMAIL);
 
     if (!$email) {
-        echo "<script>alert('Please enter a valid email address.');</script>";
+        echo json_encode(["status" => "error", "message" => "Please enter a valid email address."]);
         exit();
     }
 
@@ -66,15 +66,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail->Body    = "Your password has been reset. Your new password is: <b>$new_password</b>";
 
                 $mail->send();
-                echo "<script>alert('A new password has been sent to your email address.'); window.location.href='http://localhost:8000/frontend/pages/Customer_login.html';</script>";
+                echo json_encode(["status" => "success", "message" => "A new password has been sent to your email address."]);
             } catch (Exception $e) {
-                echo "<script>alert('Failed to send email. Error: " . $mail->ErrorInfo . "');</script>";
+                echo json_encode(["status" => "error", "message" => "Failed to send email. Error: " . $mail->ErrorInfo]);
             }
         } else {
-            echo "<script>alert('Failed to update password. Please try again.');</script>";
+            echo json_encode(["status" => "error", "message" => "Failed to update password. Please try again."]);
         }
     } else {
-        echo "<script>alert('No account found with this email address.'); window.location.href='http://localhost:8000/frontend/pages/forgot_password.html';</script>";
+        echo json_encode(["status" => "error", "message" => "No account found with this email address."]);
     }
 }
 

@@ -19,13 +19,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($admin_name === $predefined_admin_name && $password === $predefined_password) {
         $_SESSION['admin_logged_in'] = true;
         $_SESSION['admin_name'] = $admin_name;
-        //echo "<div style='color:green;'>Login successful! Redirecting to SubAdmin Dashboard..</div>";
-        echo "<script>alert('Login successful! Redirecting to SubAdmin Dashboard...'); window.location.href='http://localhost:8000/frontend/pages/subadmin_dashboard.html';</script>";
+        echo json_encode(["status" => "success", "message" => "Login successful! Redirecting to SubAdmin Dashboard..."]);
         exit();
     }    
 
     else {
-        echo "<script>alert('Invalid credentials! Please try again.'); window.location.href='http://localhost:8000/frontend/pages/subadmin_login.html';</script>";
+        echo json_encode(["status" => "error", "message" => "Invalid credentials! Please try again."]);
     }
 }
 ?>
