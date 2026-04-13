@@ -3,231 +3,290 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile - E-Medicine</title>
+    <title>My Profile - E-Medicine</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
     <style>
-    
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        header {
-            background-color: #0066cc;
-            padding: 10px 20px;
+        .page-wrapper {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f8fafc;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
             color: white;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-
-        nav ul li {
-            margin-left: 20px;
-            position: relative;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            padding: 5px 10px;
-            display: block;
-        }
-
-        nav ul li:hover > ul {
-            display: block;
-        }
-
-        nav ul ul {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: #0066cc;
-            padding: 10px;
-            list-style: none;
-            min-width: 160px;
-            z-index: 1000;
-        }
-
-        nav ul ul li {
-            margin: 0;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
+            padding: 60px 20px 100px;
             text-align: center;
-            color: #333;
         }
-        .profile-details, .order-history {
-            margin-top: 20px;
+
+        .profile-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
         }
-        .profile-details p, .order-history table {
-            font-size: 18px;
-            color: #444;
+
+        .profile-container {
+            max-width: 1200px;
+            margin: -60px auto 40px;
+            padding: 0 20px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            position: relative;
+            z-index: 10;
         }
+
+        .profile-card, .orders-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+            height: fit-content;
+        }
+
+        /* Profile Details Side */
+        .profile-card h2 {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 10px;
+        }
+
+        .profile-detail {
+            margin-bottom: 20px;
+        }
+
+        .profile-detail label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .profile-detail p {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        /* Order History Side */
+        .orders-card h2 {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
         table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
             margin-top: 10px;
         }
+
+        thead {
+            background-color: #f1f5f9;
+        }
+
         th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
+            padding: 15px;
             text-align: left;
+            border-bottom: 1px solid #e2e8f0;
         }
+
         th {
-            background-color: #0066cc;
-            color: white;
+            font-weight: 600;
+            color: var(--secondary-color);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
         }
-        .edit-btn {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            cursor: pointer;
-            margin-top: 10px;
-            display: block;
-            width: 100%;
-            text-align: center;
-            border-radius: 5px;
+
+        tbody tr {
+            transition: background-color 0.2s ease;
         }
-        .edit-btn:hover {
-            background-color: #218838;
+
+        tbody tr:hover {
+            background-color: #f8fafc;
         }
+
+        /* Form Inputs for Editing */
         .form-group {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
-        label {
-            font-weight: bold;
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-main);
+            font-weight: 500;
         }
-        input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #0066cc;
-            color: white;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-        .social-icons {
-            margin-top: 10px;
-        }
-        .social-icons a {
-            color: white;
-            margin: 0 10px;
-            text-decoration: none;
-            font-weight: bold;
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-<!-- Navbar will be fetched from navbar.html -->
-<div id="navbar"></div>
-    <div class="container">
-        <h2>My Profile</h2>
-        <div class="profile-details">
-            <p><b>Name:</b> <span id="name"></span></p>
-            <p><b>Email:</b> <span id="email"></span></p>
-            <p><b>Phone:</b> <span id="phone"></span></p>
-            <p><b>Address:</b> <span id="address"></span></p>
-            <button class="edit-btn" onclick="showEditForm()">Edit Profile</button>
+    <div class="page-wrapper">
+        <div id="navbar"></div>
+
+        <div class="profile-header animate-fade-in">
+            <h1>My Profile</h1>
+            <p style="color:#e2e8f0;">Manage your account and view your order history.</p>
         </div>
 
-        <div id="edit-form" style="display: none;">
-            <h3>Edit Profile</h3>
-            <div class="form-group">
-                <label for="newName">Name:</label>
-                <input type="text" id="newName">
+        <div class="profile-container animate-slide-up">
+            <!-- Left Side: Profile Information -->
+            <div class="profile-card">
+                <div id="view-profile">
+                    <h2>Personal Information</h2>
+                    <div class="profile-detail">
+                        <label>Name</label>
+                        <p id="name">Loading...</p>
+                    </div>
+                    <div class="profile-detail">
+                        <label>Email Address</label>
+                        <p id="email">Loading...</p>
+                    </div>
+                    <div class="profile-detail">
+                        <label>Phone Number</label>
+                        <p id="phone">Loading...</p>
+                    </div>
+                    <div class="profile-detail">
+                        <label>Delivery Address</label>
+                        <p id="address">Loading...</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="showEditForm()" style="width: 100%; margin-top:10px;">Edit Profile</button>
+                </div>
+
+                <!-- Edit Mode -->
+                <div id="edit-form" style="display: none;">
+                    <h2>Edit Information</h2>
+                    <div class="form-group">
+                        <label for="newName">Full Name</label>
+                        <input type="text" id="newName" class="input-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="newEmail">Email Address</label>
+                        <input type="email" id="newEmail" class="input-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="newPhone">Phone Number</label>
+                        <input type="text" id="newPhone" class="input-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="newAddress">Delivery Address</label>
+                        <input type="text" id="newAddress" class="input-control">
+                    </div>
+                    <div style="display: flex; gap: 10px; margin-top:20px;">
+                        <button class="btn btn-primary" onclick="updateProfile()" style="flex:1;">Save</button>
+                        <button class="btn btn-outline" onclick="cancelEdit()" style="flex:1;">Cancel</button>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="newEmail">Email:</label>
-                <input type="email" id="newEmail">
+
+            <!-- Right Side: Order History -->
+            <div class="orders-card">
+                <h2>Recent Orders</h2>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Purchase Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orderTable">
+                            <tr><td colspan="4" style="text-align: center;">Loading orders...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="newPhone">Phone:</label>
-                <input type="text" id="newPhone">
-            </div>
-            <div class="form-group">
-                <label for="newAddress">Address:</label>
-                <input type="text" id="newAddress">
-            </div>
-            <button class="edit-btn" onclick="updateProfile()">Save Changes</button>
         </div>
 
-        <h2>Order History</h2>
-        <div class="order-history">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Product</th>
-                        <th>Price</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody id="orderTable"></tbody>
-            </table>
-        </div>
+        <div id="footer"></div>
     </div>
 
     <script>
-        // Fetch user profile
+        fetch('../components/navbar.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('navbar').innerHTML = data);
+        fetch('../components/footer.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('footer').innerHTML = data);
+
+        // Fetch User Profile
         fetch('http://localhost:8000/backend/controllers/customer_profile.php')
             .then(response => response.json())
             .then(data => {
-                document.getElementById("name").innerText = data.name;
-                document.getElementById("email").innerText = data.email;
-                document.getElementById("phone").innerText = data.phone;
-                document.getElementById("address").innerText = data.address;
+                // ADDED AUTH CHECK FOR PROFILE PAGE!
+                if(data.error === "User not logged in") {
+                    alert("Please login to view your profile.");
+                    window.location.href = "Customer_login.html";
+                    return;
+                }
+                if(data.error) {
+                    alert(data.error);
+                } else {
+                    document.getElementById("name").innerText = data.name;
+                    document.getElementById("email").innerText = data.email;
+                    document.getElementById("phone").innerText = data.phone;
+                    document.getElementById("address").innerText = data.address;
+                }
             })
             .catch(error => console.error('Error loading profile:', error));
 
-        // Fetch order history
+        // Fetch Order History
         fetch('http://localhost:8000/backend/controllers/order_history.php')
             .then(response => response.json())
             .then(orders => {
                 let orderTable = document.getElementById("orderTable");
+                orderTable.innerHTML = ""; // Clear loading
+                if(orders.error) {
+                    orderTable.innerHTML = `<tr><td colspan="4" style="text-align: center;">Please login to view history.</td></tr>`;
+                    return;
+                }
+                if(orders.length === 0) {
+                    orderTable.innerHTML = `<tr><td colspan="4" style="text-align: center;">You have no past orders.</td></tr>`;
+                    return;
+                }
                 orders.forEach(order => {
                     let row = `
                         <tr>
-                            <td>${order.order_id}</td>
-                            <td>${order.product_name}</td>
-                            <td>&#8377;${order.price}</td>
-                            <td>${order.date}</td>
+                            <td>#${order.order_id}</td>
+                            <td style="font-weight: 500; color: var(--secondary-color);">${order.product_name}</td>
+                            <td style="font-weight: bold; color: var(--primary-color);">₹${order.price}</td>
+                            <td style="color: var(--text-muted);">${order.date}</td>
                         </tr>`;
                     orderTable.innerHTML += row;
                 });
             })
-            .catch(error => console.error('Error fetching orders:', error));
+            .catch(error => {
+                document.getElementById("orderTable").innerHTML = `<tr><td colspan="4" style="text-align: center; color: red;">Failed to load orders.</td></tr>`;
+            });
 
         function showEditForm() {
+            document.getElementById("view-profile").style.display = "none";
             document.getElementById("edit-form").style.display = "block";
+            
+            // Pre-fill inputs
+            document.getElementById("newName").value = document.getElementById("name").innerText;
+            document.getElementById("newEmail").value = document.getElementById("email").innerText;
+            document.getElementById("newPhone").value = document.getElementById("phone").innerText;
+            document.getElementById("newAddress").value = document.getElementById("address").innerText;
+        }
+
+        function cancelEdit() {
+            document.getElementById("edit-form").style.display = "none";
+            document.getElementById("view-profile").style.display = "block";
         }
 
         function updateProfile() {
@@ -239,30 +298,17 @@
             fetch('http://localhost:8000/backend/controllers/update_profile.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `name=${newName}&email=${newEmail}&phone=${newPhone}&address=${newAddress}`
+                body: `name=${encodeURIComponent(newName)}&email=${encodeURIComponent(newEmail)}&phone=${encodeURIComponent(newPhone)}&address=${encodeURIComponent(newAddress)}`
             })
             .then(response => response.json())
             .then(data => {
                 alert(data.message);
-                location.reload();
+                if(data.message.includes("success") || !data.error) {
+                    location.reload();
+                }
             })
             .catch(error => console.error('Error updating profile:', error));
         }
     </script>
-        <div id="footer"></div>
-        <script>
-            // Load navbar from navbar.html
-            fetch('../components/navbar.html')  // Correct path to your navbar file
-                .then(response => response.text())
-                .then(data => document.getElementById('navbar').innerHTML = data)
-                .catch(error => console.error('Error loading navbar:', error));
-    
-            // Load footer from footer.html
-            fetch('../components/footer.html')  // Correct path to your footer file
-                .then(response => response.text())
-                .then(data => document.getElementById('footer').innerHTML = data)
-                .catch(error => console.error('Error loading footer:', error));
-        </script>
-
 </body>
 </html>

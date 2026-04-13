@@ -144,7 +144,14 @@
                 body: `product_id=${product_id}&quantity=${quantity}`
             })
             .then(response => response.json())
-            .then(data => alert(data.message))
+            .then(data => {
+                if(data.message === "User not logged in" || data.message.includes("logged in")) {
+                    alert("Please login to add items to your cart.");
+                    window.location.href = "Customer_login.html";
+                } else {
+                    alert(data.message);
+                }
+            })
             .catch(error => console.error('Error:', error));
         }
 
