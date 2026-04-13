@@ -3,176 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Care-E-Medicine</title>
+    <title>Personal Care - E-Medicine</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-image: url('../assets/images/Customerhomebg.jpeg');
-            background-size: cover;
-            background-attachment: fixed;
-            color: #333;
+        .page-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        header {
-            background-color: #0066cc;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .category-header {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
             color: white;
-        }
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-        nav ul li {
-            margin-left: 20px;
-            position: relative;
-        }
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            padding: 5px 10px;
-            display: block;
-        }
-        nav ul li:hover > ul {
-            display: block;
-        }
-        nav ul ul {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: #0066cc;
-            padding: 10px;
-            list-style: none;
-            min-width: 160px;
-            z-index: 1000;
-        }
-        nav ul ul li {
-            margin: 0;
-        }
-        .banner {
-            text-align: center;
             padding: 60px 20px;
-            background-color: rgba(255, 255, 255, 0.9);
-            margin: 20px;
-            border-radius: 10px;
+            text-align: center;
+            border-bottom: 5px solid var(--accent-color);
         }
 
-        .Personal {
-            padding: 40px 20px;
-            background-color: rgba(255, 255, 255, 0.9);
-            margin: 20px;
-            border-radius: 10px;
-        }
-        .Personal h2 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        .product-item {
-            text-align: center;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            transition: transform 0.3s;
-        }
-        .product-item:hover {
-            transform: scale(1.05);
-        }
-        .product-item img {
-            max-width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-bottom: 1px solid #ddd;
-            margin-bottom: 15px;
-        }
-        .product-item h3 {
-            margin: 10px 0;
-            font-size: 18px;
-        }
-        .product-item p {
-            font-size: 16px;
-            color: #888;
-            margin-bottom: 15px;
-        }
-        .product-item button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .view-btn {
-            background-color: #007bff;
+        .category-header h1 {
+            font-size: 2.5rem;
             color: white;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
-        .view-btn:hover {
-            background-color: #0056b3;
-        }
-        .cart-btn {
-            background-color: #28a745;
-            color: white;
-        }
-        .cart-btn:hover {
-            background-color: #218838;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #0066cc;
-            color: white;
-            position: fixed;
-            bottom: 0;
+
+        .products-section {
+            padding: 60px 20px;
+            flex-grow: 1;
+            max-width: 1400px;
+            margin: 0 auto;
             width: 100%;
         }
-        .social-icons {
-            margin-top: 10px;
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
         }
-        .social-icons a {
-            color: white;
-            margin: 0 10px;
-            text-decoration: none;
-            font-weight: bold;
+
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            padding: 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .product-img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .product-info {
+            padding: 24px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .product-info .price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .product-actions {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .product-actions .btn {
+            width: 100%;
         }
     </style>
 </head>
 <body>
-    <div id="navbar"></div>
+    <div class="page-wrapper">
+        <div id="navbar"></div>
 
-    <section class="Personal">
-        <h2>Personal Care (Health & Hygiene)</h2>
-        <div class="product-grid"></div>
-    </section>
+        <div class="category-header animate-fade-in">
+            <h1>Personal Care</h1>
+            <p>Health & Hygiene products tailored for you.</p>
+        </div>
 
-    <div id="footer"></div>
+        <section class="products-section">
+            <div class="product-grid" id="productGrid"></div>
+        </section>
+
+        <div id="footer"></div>
+    </div>
 
     <script>
-        // Load navbar and footer
         fetch('../components/navbar.html')
             .then(response => response.text())
-            .then(data => document.getElementById('navbar').innerHTML = data)
-            .catch(error => console.error('Error loading navbar:', error));
+            .then(data => document.getElementById('navbar').innerHTML = data);
 
         fetch('../components/footer.html')
             .then(response => response.text())
-            .then(data => document.getElementById('footer').innerHTML = data)
-            .catch(error => console.error('Error loading footer:', error));
+            .then(data => document.getElementById('footer').innerHTML = data);
 
         function viewDetails(productId) {
             window.location.href = "product_details.html?product_id=" + productId;
@@ -191,9 +144,7 @@
                 body: `product_id=${product_id}&quantity=${quantity}`
             })
             .then(response => response.json())
-            .then(data => {
-                alert(data.message);
-            })
+            .then(data => alert(data.message))
             .catch(error => console.error('Error:', error));
         }
 
@@ -201,17 +152,29 @@
             fetch('http://localhost:8000/backend/controllers/personal_care.php')
                 .then(response => response.json())
                 .then(products => {
-                    let productGrid = document.querySelector('.product-grid');
+                    let productGrid = document.getElementById('productGrid');
                     productGrid.innerHTML = "";
+                    
+                    if(products.length === 0) {
+                        productGrid.innerHTML = "<p style='grid-column: 1/-1; text-align: center;'>No products found in this category.</p>";
+                        return;
+                    }
 
-                    products.forEach(product => {
+                    products.forEach((product, index) => {
+                        let delay = (index * 0.1).toFixed(1);
                         let productHTML = `
-                            <div class="product-item">
-                                <img src="../assets/images/${product.Product_img}" alt="${product.Pro_name}">
-                                <h3>${product.Pro_name}</h3>
-                                <p>&#8377;${product.Price}</p>
-                                <button class="view-btn" onclick="viewDetails(${product.Product_id})">View Details</button>
-                                <button class="cart-btn" onclick="addToCart(${product.Product_id})">Add to Cart</button>
+                            <div class="card product-card animate-slide-up" style="animation-delay: ${delay}s; opacity: 0;">
+                                <div class="product-img-wrapper">
+                                    <img src="../assets/images/${product.Product_img}" alt="${product.Pro_name}" onerror="this.src='https://placehold.co/400x300?text=No+Image';">
+                                </div>
+                                <div class="product-info">
+                                    <h3>${product.Pro_name}</h3>
+                                    <p class="price">&#8377;${product.Price}</p>
+                                    <div class="product-actions">
+                                        <button class="btn btn-outline" onclick="viewDetails(${product.Product_id})">View Details</button>
+                                        <button class="btn btn-primary" onclick="addToCart(${product.Product_id})">Add to Cart</button>
+                                    </div>
+                                </div>
                             </div>
                         `;
                         productGrid.innerHTML += productHTML;

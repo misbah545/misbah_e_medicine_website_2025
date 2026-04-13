@@ -1,208 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Registration</title>
+    <title>Customer Registration - E-Medicine</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #6a1b9a;
-            margin: 0;
-            padding: 0;
+            background: linear-gradient(135deg, #1e3a8a, #0d9488);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
         }
 
-        .container {
+        .auth-container {
             display: flex;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            max-width: 900px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            max-width: 1000px;
             width: 100%;
             overflow: hidden;
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .register-section {
+        .form-section {
+            width: 55%;
             padding: 40px;
-            width: 50%;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            background: var(--bg-main);
         }
 
-        .register-section h1 {
-            margin-bottom: 30px;
-            font-size: 30px;
-            color: #333;
-            text-align: center;
-            border-bottom: 3px solid #6a1b9a;
-            display: inline-block;
-            padding-bottom: 5px;
+        .form-section h1 {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 25px;
         }
 
-        .register-section label {
-            margin-bottom: 10px;
-            font-size: 14px;
-            color: #333;
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
             display: block;
+            margin-bottom: 8px;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 0.9rem;
         }
 
-        .register-section input[type="text"],
-        .register-section input[type="email"],
-        .register-section input[type="password"],
-        .register-section select {
+        .form-group select {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 12px 16px;
+            font-size: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            outline: none;
+            background-color: var(--bg-card);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
         }
 
-        .register-section button {
-            width: 100%;
-            padding: 10px;
-            background-color: #6a1b9a;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
+        .form-group select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.2);
         }
 
-        .register-section .login {
-            margin-top: 20px;
+        .auth-footer {
+            margin-top: 25px;
             text-align: center;
-            font-size: 14px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
         }
 
-        .register-section .login a {
-            color: #6a1b9a;
-            text-decoration: none;
+        .auth-footer a {
+            color: var(--primary-color);
+            font-weight: 600;
         }
 
         .image-section {
-            width: 50%;
-            background: url('../assets/images/Register page.jpg') no-repeat center center;
+            width: 45%;
+            background: linear-gradient(135deg, rgba(30,58,138,0.7), rgba(13,148,136,0.8)), url('../assets/images/Customerhomebg.jpeg') no-repeat center center;
             background-size: cover;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: #000;
+            color: white;
             padding: 40px;
+            text-align: center;
         }
 
-        .image-section h3 {
-            font-size: 28px;
-            line-height: 1.2;
-            margin-bottom: 10px;
+        .image-section h2 {
+            font-size: 2.2rem;
+            color: white;
+            margin-bottom: 15px;
         }
 
         .image-section p {
-            font-size: 16px;
-            margin-top: 10px;
+            font-size: 1.1rem;
+            color: #e2e8f0;
         }
 
         @media (max-width: 768px) {
-            .container {
+            .auth-container {
                 flex-direction: column;
             }
-
             .image-section {
-                width: 100%;
-                height: 200px;
-                background-size: cover;
+                display: none;
             }
-
-            .register-section {
+            .form-section {
                 width: 100%;
-                padding: 20px;
+                padding: 30px 20px;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-
 <body>
-    <div class="container">
-        <div class="register-section">
-            <h1>Customer Registration Form</h1>
+    <div class="auth-container">
+        <div class="form-section">
+            <h1>Create an Account</h1>
             <form id="registrationForm">
-                <label for="register_customer_name">Full Name</label>
-                <input type="text" id="register_customer_name" name="register_customer_name" required>
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="register_customer_name">Full Name</label>
+                        <input type="text" id="register_customer_name" name="register_customer_name" class="input-control" placeholder="John Doe" required>
+                    </div>
 
-                <label for="register_customer_email">Email</label>
-                <input type="email" id="register_customer_email" name="register_customer_email" required>
+                    <div class="form-group">
+                        <label for="register_customer_email">Email</label>
+                        <input type="email" id="register_customer_email" name="register_customer_email" class="input-control" placeholder="john@example.com" required>
+                    </div>
 
-                <label for="register_customer_password">Password</label>
-                <input type="password" id="register_customer_password" name="register_customer_password" required>
+                    <div class="form-group">
+                        <label for="register_customer_phone">Phone Number</label>
+                        <input type="text" id="register_customer_phone" name="register_customer_phone" class="input-control" placeholder="+91 9876543210" required>
+                    </div>
 
-                <label for="register_customer_gender">Gender</label>
-                <select id="register_customer_gender" name="register_customer_gender" required>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                </select>
+                    <div class="form-group">
+                        <label for="register_customer_password">Password</label>
+                        <input type="password" id="register_customer_password" name="register_customer_password" class="input-control" placeholder="••••••••" required>
+                    </div>
 
-                <label for="register_customer_address">Address</label>
-                <input type="text" id="register_customer_address" name="register_customer_address" required>
+                    <div class="form-group">
+                        <label for="register_customer_gender">Gender</label>
+                        <select id="register_customer_gender" name="register_customer_gender" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
 
-                <label for="register_customer_phone">Contact Number</label>
-                <input type="text" id="register_customer_phone" name="register_customer_phone" required>
+                    <div class="form-group full-width">
+                        <label for="register_customer_address">Full Address</label>
+                        <input type="text" id="register_customer_address" name="register_customer_address" class="input-control" placeholder="123 Main St, City, Zip" required>
+                    </div>
+                </div>
 
-                <button type="submit">Register</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 15px;">Register Account</button>
 
-                <div class="login">
+                <div class="auth-footer">
                     Already have an account? <a href="http://localhost:8000/frontend/pages/Customer_login.html">Login now</a>
                 </div>
             </form>
         </div>
+        
         <div class="image-section">
-            <div>
-                <b>
-                    <h3>Join us and explore new adventures.</h3>
-                </b>
-                <b>
-                    <p>Get connected with just a few clicks.</p>
-                </b>
-            </div>
+            <h2>Start Your Journey</h2>
+            <p>Join thousands of users effortlessly accessing premium medical care today.</p>
         </div>
     </div>
+
     <script>
         $(document).ready(function () {
             $("#registrationForm").on("submit", function (event) {
-                event.preventDefault(); // Prevent the form from submitting normally
-    
+                event.preventDefault(); 
+                let btn = $(this).find('button[type="submit"]');
+                btn.prop('disabled', true).text('Creating Account...');
+
                 $.ajax({
                     url: "http://localhost:8000/backend/controllers/register.php",
                     type: "POST",
-                    data: $(this).serialize(), // Serialize form data
+                    data: $(this).serialize(),
                     dataType: "json",
                     success: function (response) {
                         if (response.status === "error") {
-                            // Display error messages in an alert box
-                            let errorMessages = response.messages.join("\n");
+                            let errorMessages = response.messages ? response.messages.join("\n") : response.message;
                             alert("Error:\n" + errorMessages);
+                            btn.prop('disabled', false).text('Register Account');
                         } else if (response.status === "success") {
-                            // Display success message in an alert box
                             alert(response.message);
-                            // Redirect to the login page
                             window.location.href = "http://localhost:8000/frontend/pages/Customer_login.html";
                         }
                     },
                     error: function (xhr, status, error) {
                         console.error("AJAX Error:", error);
                         alert("An unexpected error occurred. Please try again.");
+                        btn.prop('disabled', false).text('Register Account');
                     }
                 });
             });
         });
     </script>
 </body>
-
 </html>

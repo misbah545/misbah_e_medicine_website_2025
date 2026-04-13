@@ -1,26 +1,147 @@
-<header>
-    <div class="logo">E-Medicine</div>
+<style>
+/* Scoped Navbar Styles */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+}
+
+.navbar .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #1e3a8a, #0d9488);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+}
+
+.navbar-nav {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    gap: 24px;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: #4b5563; /* Gray 600 */
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+    color: #0d9488;
+    background: rgba(13, 148, 136, 0.05);
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 10px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    min-width: 280px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    list-style: none;
+    padding: 8px 0;
+    z-index: 1000;
+}
+
+.nav-item:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: block;
+    padding: 10px 20px;
+    color: #4b5563;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: background 0.2s;
+}
+
+.dropdown-item b {
+    display: block;
+    font-size: 0.8rem;
+    color: #9ca3af;
+    font-weight: normal;
+}
+
+.dropdown-item:hover {
+    background: #f8fafc;
+    color: #0d9488;
+}
+
+.nav-btn {
+    padding: 8px 20px !important;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 15px 20px;
+    }
+    .navbar-nav {
+        margin-top: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+}
+</style>
+
+<header class="navbar">
+    <a href="../pages/customer_home.html" class="logo">E-Medicine</a>
     <nav>
-        <ul>
-            <li><a href="../pages/customer_home.html">Home</a></li>
-            <li><a href="#">Products</a>
-                <ul>
-                    <li><a href="../pages/medications.html">Medications <b>(Prescribed or Over-the-Counter)</b></a></li>
-                    <li><a href="../pages/supplements.html">Supplements <b>(Vitamins & Dietary Supplements)</b></a></li>
-                    <li><a href="../pages/personal_care.html">Personal Care <b>(Health & Hygiene)</b></a></li>
-                    <li><a href="../pages/medical_equipment.html">Medical Equipment <b>(Healthcare Devices)</b></a></li>
+        <ul class="navbar-nav">
+            <li class="nav-item"><a href="../pages/customer_home.html" class="nav-link">Home</a></li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">Products ▾</a>
+                <ul class="dropdown-menu">
+                    <li><a href="../pages/medications.html" class="dropdown-item">Medications <b>Prescribed or Over-the-Counter</b></a></li>
+                    <li><a href="../pages/supplements.html" class="dropdown-item">Supplements <b>Vitamins & Dietary Supplements</b></a></li>
+                    <li><a href="../pages/personal_care.html" class="dropdown-item">Personal Care <b>Health & Hygiene</b></a></li>
+                    <li><a href="../pages/medical_equipment.html" class="dropdown-item">Medical Equipment <b>Healthcare Devices</b></a></li>
                 </ul>
             </li>
-            <li><a href="../pages/aboutus.html">About Us</a></li>
-            <li><a href="../pages/contact.html">Contact Us</a></li>
-            <li><a href="../pages/cart.html">🛒Cart</a></li>
-            <li><a href="#">Login/Register</a>
-                <ul>
-                    <li><a href="../pages/Customer_login.html">Login</a></li>
-                    <li><a href="../pages/register.html">Register</a></li>
+            <li class="nav-item"><a href="../pages/aboutus.html" class="nav-link">About Us</a></li>
+            <li class="nav-item"><a href="../pages/contact.html" class="nav-link">Contact</a></li>
+            <li class="nav-item"><a href="../pages/cart.html" class="nav-link" style="display:flex; align-items:center; gap:5px;"><span style="font-size:1.2rem;">🛒</span> Cart</a></li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">Account ▾</a>
+                <ul class="dropdown-menu" style="min-width: 150px;">
+                    <li><a href="../pages/Customer_login.html" class="dropdown-item">Login</a></li>
+                    <li><a href="../pages/register.html" class="dropdown-item">Register</a></li>
                 </ul>
             </li>
-            <li><a href="../pages/customer_profile.html">Profile</a></li>
+            <li class="nav-item">
+                <a href="../pages/customer_profile.html" class="btn btn-primary nav-btn">Profile</a>
+            </li>
         </ul>
     </nav>
 </header>

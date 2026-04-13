@@ -1,0 +1,13 @@
+/* 
+ * Product Layout Styles
+ * ----------------------------------------------------
+ * NOTE: The primary product grids, cards, and modal components
+ * are now handled by the global design system in /assets/css/global.css.
+ * 
+ * This file is retained to prevent 404 errors on legacy imports 
+ * and to allow future product-page specific overrides.
+ */
+
+@import url('global.css');
+
+/* Add any strictly product-only specific overrides below */

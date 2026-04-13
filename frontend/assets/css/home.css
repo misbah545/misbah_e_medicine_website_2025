@@ -1,0 +1,13 @@
+/* 
+ * Home Layout Styles
+ * ----------------------------------------------------
+ * NOTE: The E-Medicine platform has transitioned to a centralized 
+ * design system. All core styling, colors, and layouts are now 
+ * managed in the /assets/css/global.css file.
+ * 
+ * This file is retained for backwards compatibility or page-specific overrides.
+ */
+
+@import url('global.css');
+
+/* Add any strictly home-only specific overrides below */

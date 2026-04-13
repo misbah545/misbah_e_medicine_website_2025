@@ -1,9 +1,83 @@
-<footer>
-    <b><p>&copy; 2024 E-Medicine. All rights reserved.</p></b>
-    <b><div class="social-icons">
-        <a href="https://facebook.com" target="_blank" class="facebook">Facebook</a>
-        <a href="https://twitter.com" target="_blank" class="twitter">Twitter</a>
-        <a href="https://instagram.com" target="_blank" class="instagram">Instagram</a>
+<style>
+.site-footer {
+    background: linear-gradient(135deg, #1e3a8a, #0f172a);
+    color: #f8fafc;
+    padding: 60px 40px 20px;
+    text-align: center;
+    border-top: 5px solid #0d9488;
+    margin-top: 60px;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-brand h2 {
+    background: linear-gradient(135deg, #38bdf8, #2dd4bf);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.footer-brand p {
+    color: #94a3b8;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.social-links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background: #0d9488;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(13, 148, 136, 0.4);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+</style>
+
+<footer class="site-footer">
+    <div class="footer-content">
+        <div class="footer-brand">
+            <h2>E-Medicine</h2>
+            <p>Bringing premium medicine and healthcare devices right to your fingertips, reliably and safely.</p>
+            <div class="social-links">
+                <a href="https://facebook.com" target="_blank" title="Facebook">FB</a>
+                <a href="https://twitter.com" target="_blank" title="Twitter">TW</a>
+                <a href="https://instagram.com" target="_blank" title="Instagram">IG</a>
+            </div>
+        </div>
     </div>
-    </b>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2024 E-Medicine. All rights reserved.</p>
+    </div>
 </footer>

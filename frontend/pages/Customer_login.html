@@ -1,192 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Login</title>
+    <title>Customer Login - E-Medicine</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(145deg, #5e1486, #7a23af);
-            margin: 0;
-            padding: 0;
+            background: linear-gradient(135deg, #1e3a8a, #0d9488);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
             overflow: hidden;
         }
 
-        .container {
+        .auth-container {
             display: flex;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
             max-width: 900px;
-            width: 100%;
+            width: 90%;
+            height: 550px;
             overflow: hidden;
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .login-section {
-            padding: 40px;
+        .form-section {
             width: 50%;
-            background-color: #f4f4f4;
+            padding: 50px 40px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            background: var(--bg-main);
         }
 
-        .login-section h2 {
+        .form-section h1 {
+            font-size: 2rem;
+            color: var(--secondary-color);
             margin-bottom: 30px;
-            font-size: 24px;
-            color: #333;
-            border-bottom: 3px solid #6a1b9a;
-            display: inline-block;
-            padding-bottom: 5px;
         }
 
-        .login-section label {
-            margin-bottom: 10px;
-            font-size: 14px;
-            color: #333;
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
             display: block;
+            margin-bottom: 8px;
+            color: var(--text-main);
+            font-weight: 500;
         }
 
-        .login-section input[type="email"],
-        .login-section input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .login-section .forgot-password {
+        .forgot-password {
             text-align: right;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        .login-section .forgot-password a {
-            color: #6a1b9a;
-            text-decoration: none;
-            font-size: 14px;
+        .forgot-password a {
+            font-size: 0.9rem;
+            color: var(--primary-color);
         }
 
-        .login-section button {
-            width: 100%;
-            padding: 10px;
-            background-color: #6a1b9a;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+        .auth-footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.95rem;
+            color: var(--text-muted);
         }
 
-        .login-section button:hover {
-            background-color: #4e0d6b;
+        .auth-footer a {
+            color: var(--primary-color);
+            font-weight: 600;
         }
 
         .image-section {
             width: 50%;
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2)), 
-                        url('../assets/images/Mobile Medicine bg.jpg') 
-                        no-repeat center center;
+            background: linear-gradient(135deg, rgba(30,58,138,0.7), rgba(13,148,136,0.8)), url('../assets/images/Customerhomebg.jpeg') no-repeat center center;
             background-size: cover;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             color: white;
             padding: 40px;
+            text-align: center;
         }
 
-        .image-section h3 {
-            font-size: 28px;
-            line-height: 1.2;
-            margin-bottom: 10px;
+        .image-section h2 {
+            font-size: 2.2rem;
+            color: white;
+            margin-bottom: 15px;
         }
 
         .image-section p {
-            font-size: 16px;
-            margin-top: 10px;
-        }
-        .login-section .signup {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 14px;
+            font-size: 1.1rem;
+            color: #e2e8f0;
         }
 
-        .login-section .signup a {
-            color: #6a1b9a;
-            text-decoration: none;
+        @media (max-width: 768px) {
+            .auth-container {
+                flex-direction: column;
+                height: auto;
+            }
+            .image-section {
+                display: none;
+            }
+            .form-section {
+                width: 100%;
+                padding: 40px 20px;
+            }
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-
 <body>
-    <div class="container">
-        <div class="login-section">
-            <h2>Login</h2>
-            <!-- Removed the action attribute -->
+    <div class="auth-container">
+        <div class="form-section">
+            <h1>Welcome Back</h1>
             <form id="loginForm">
-                <label for="email">Enter your email</label>
-                <input type="email" id="email" name="email" required>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" class="input-control" placeholder="john@example.com" required>
+                </div>
 
-                <label for="password">Enter your password</label>
-                <input type="password" id="password" name="password" required>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" class="input-control" placeholder="••••••••" required>
+                </div>
 
                 <div class="forgot-password">
                     <a href="http://localhost:8000/frontend/pages/forgot_password.html">Forgot password?</a>
                 </div>
 
-                <button type="submit">Login</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Login ➔</button>
             </form>
-            <div class="signup">
+            
+            <div class="auth-footer">
                 Don't have an account? <a href="http://localhost:8000/frontend/pages/register.html">Register now</a>
             </div>
-                
-
         </div>
+        
         <div class="image-section">
-            <div>
-                <h3>Every new friend is a new adventure.</h3>
-                <p>Let's get connected</p>
-            </div>
+            <h2>E-Medicine Portal</h2>
+            <p>Access your orders, track shipments, and manage your health seamlessly.</p>
         </div>
     </div>
 
     <script>
         $(document).ready(function () {
             $("#loginForm").on("submit", function (event) {
-                event.preventDefault(); // Prevent the form from submitting normally
+                event.preventDefault(); 
+                let btn = $(this).find('button[type="submit"]');
+                btn.prop('disabled', true).text('Logging in...');
 
                 $.ajax({
                     url: "http://localhost:8000/backend/controllers/Customer_login.php",
                     type: "POST",
-                    data: $(this).serialize(), // Serialize form data
+                    data: $(this).serialize(),
                     dataType: "json",
                     success: function (response) {
                         if (response.status === "error") {
-                            // Display error message in an alert box
                             alert(response.message);
+                            btn.prop('disabled', false).text('Login ➔');
                         } else if (response.status === "success") {
-                            // Display success message in an alert box
-                            alert(response.message);
-                            // Redirect to the homepage
                             window.location.href = "http://localhost:8000/frontend/pages/customer_home.html";
                         }
                     },
                     error: function (xhr, status, error) {
                         console.error("AJAX Error:", error);
                         alert("An unexpected error occurred. Please try again.");
+                        btn.prop('disabled', false).text('Login ➔');
                     }
                 });
             });
         });
     </script>
 </body>
-
 </html>
